@@ -1,11 +1,11 @@
 import train_val 
-import UNet
+import model
 import dataloader
 import torch
 
 train = train_val.train
 validate = train_val.validate
-model = UNet.model
+model = model.model
 train_loader = dataloader.train_loader
 val_loader = dataloader.val_loader
 criterion = train_val.criterion
