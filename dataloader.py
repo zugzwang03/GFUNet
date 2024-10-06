@@ -14,7 +14,7 @@ class SegmentationDataset(Dataset):
         self.transform = transform
         # Collect images from multiple directories
         self.images = []
-        for idx in range(1, 100):
+        for idx in range(1, 200):
             dir_path = os.path.join(image_dir, f"{idx:03d}", 'L')
             if os.path.exists(dir_path):
                 for img_file in os.listdir(dir_path):
