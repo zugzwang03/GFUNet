@@ -43,9 +43,8 @@ idx = 0
 
 for output_mask in output_masks:
     idx += 1
-    print(output_mask)
-    # threshold = np.mean(output_masks) # Set a threshold value to binarize the output
-    # output_mask = (output_mask > threshold).astype(np.float32)
+    threshold = np.mean(output_mask[0]) # Set a threshold value to binarize the output
+    output_mask = (output_mask > threshold).astype(np.float32)
     output_image = Image.fromarray((output_mask[0] * 255).astype('uint8'))  # Convert mask to image
     save_path = os.path.join("/content/drive/MyDrive/Fusion", f"pred_{idx}.png")  # Update the path to save the mask
     output_image.save(save_path)
