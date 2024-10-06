@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+lowOrHigh = 'low'
+
 class UNet(nn.Module):
     def __init__(self, n_class):
         super().__init__()
@@ -80,7 +82,7 @@ class UNet(nn.Module):
 
     def fusion(self, feature_map, channel_size):
         frequency_feature = self.frequency_transform(feature_map)
-        frequency_feature = self.frequency_filter(frequency_feature, 'low', 0.01)
+        frequency_feature = self.frequency_filter(frequency_feature, lowOrHigh, 0.01)
         spatial_feature = self.frequency_to_spatial(frequency_feature)
         return self.fuse_features(spatial_feature, frequency_feature, channel_size)
         return feature_map
