@@ -26,7 +26,7 @@ model.eval()
 image_dir = '/content/drive/MyDrive/CASIA-Iris-Interval'
 
 output_masks = []
-for idx in range(1, 5):
+for idx in range(1, 10):
     dir_path = os.path.join(image_dir, f"{idx:03d}", 'L')
     if os.path.exists(dir_path):
         for img_file in os.listdir(dir_path):
