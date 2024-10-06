@@ -15,8 +15,10 @@ def train(model, dataloader, criterion, optimizer, device):
     running_loss = 0.0
 
     start_time = time.time()  # Record the start time
-
+    idx = 0
     for images, masks in dataloader:
+        print(f'Iteration:{idx}')
+        idx += 1
         images = images.to(device)
         masks = masks.to(device)
 
