@@ -1,7 +1,7 @@
 # Training function
 import time
 import torch
-import UNet
+from .UNet import UNet
 import torch.optim as optim
 import torch.nn as nn
 import torchvision.transforms as transforms
