@@ -14,6 +14,7 @@ import model_training
 import model as ml
 
 lowOrHigh = ml.lowOrHigh
+leftOrRight = dataloader.leftOrRight
 
 transform = dataloader.transform
 device = model_training.device
@@ -47,6 +48,6 @@ for output_mask in output_masks:
     threshold = np.mean(output_mask[0]) # Set a threshold value to binarize the output
     output_mask = (output_mask > threshold).astype(np.float32)
     output_image = Image.fromarray((output_mask[0] * 255).astype('uint8'))  # Convert mask to image
-    save_path = os.path.join("/content/drive/MyDrive/Fusion", lowOrHigh, f"pred_{idx}.png")  # Update the path to save the mask
+    save_path = os.path.join("/content/drive/MyDrive/Fusion", leftOrRight, lowOrHigh, f"pred_{idx}.png")  # Update the path to save the mask
     output_image.save(save_path)
     print(f"Output mask saved at {save_path}")

@@ -6,6 +6,8 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 import os
 
+leftOrRight = 'L'
+
 # Sample custom dataset for image segmentation
 class SegmentationDataset(Dataset):
     def __init__(self, image_dir, mask_dir, transform=None):
@@ -15,7 +17,7 @@ class SegmentationDataset(Dataset):
         # Collect images from multiple directories
         self.images = []
         for idx in range(1, 250):
-            dir_path = os.path.join(image_dir, f"{idx:03d}", 'L')
+            dir_path = os.path.join(image_dir, f"{idx:03d}", leftOrRight)
             if os.path.exists(dir_path):
                 for img_file in os.listdir(dir_path):
                     if img_file.endswith('.jpg'):
