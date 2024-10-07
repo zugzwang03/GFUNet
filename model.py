@@ -55,7 +55,7 @@ class UNet(nn.Module):
         magnitude = torch.abs(freq)  # Convert to real values
         return magnitude
 
-    def frequency_filter(self, frequency_maps, type='low', threshold=0.10):
+    def frequency_filter(self, frequency_maps, type='low', threshold=0.48):
         if type == 'low':
             # Apply low-pass filter (keep low frequencies)
             return frequency_maps * (abs(frequency_maps) < threshold)  # custom threshold
@@ -82,10 +82,9 @@ class UNet(nn.Module):
 
     def fusion(self, feature_map, channel_size):
         frequency_feature = self.frequency_transform(feature_map)
-        frequency_feature = self.frequency_filter(frequency_feature, lowOrHigh, 0.10)
+        frequency_feature = self.frequency_filter(frequency_feature, lowOrHigh, 0.48)
         spatial_feature = self.frequency_to_spatial(frequency_feature)
         return self.fuse_features(spatial_feature, frequency_feature, channel_size)
-        return feature_map
 
     def forward(self, x):
         # Encoder
