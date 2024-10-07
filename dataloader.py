@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 import os
 
-leftOrRight = 'L'
+leftOrRight = 'R'
 
 # Sample custom dataset for image segmentation
 class SegmentationDataset(Dataset):

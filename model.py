@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-lowOrHigh = 'high'
+lowOrHigh = 'low'
 
 class UNet(nn.Module):
     def __init__(self, n_class):
@@ -92,22 +92,22 @@ class UNet(nn.Module):
         xe11 = F.relu(self.e11(x))
         xe12 = F.relu(self.e12(xe11))
         xp1 = self.pool1(xe12)
-        # xp1 = self.fusion(xp1, 64)
+        xp1 = self.fusion(xp1, 64)
 
         xe21 = F.relu(self.e21(xp1))
         xe22 = F.relu(self.e22(xe21))
         xp2 = self.pool2(xe22)
-        # xp2 = self.fusion(xp2, 128)
+        xp2 = self.fusion(xp2, 128)
 
         xe31 = F.relu(self.e31(xp2))
         xe32 = F.relu(self.e32(xe31))
         xp3 = self.pool3(xe32)
-        # xp3 = self.fusion(xp3, 256)
+        xp3 = self.fusion(xp3, 256)
 
         xe41 = F.relu(self.e41(xp3))
         xe42 = F.relu(self.e42(xe41))
         xp4 = self.pool4(xe42)
-        # xp4 = self.fusion(xp4, 512)
+        xp4 = self.fusion(xp4, 512)
 
         xe51 = F.relu(self.e51(xp4))
         xe52 = F.relu(self.e52(xe51))
@@ -118,19 +118,19 @@ class UNet(nn.Module):
         xu11 = torch.cat([xu1, xe42], dim=1)
         xd11 = F.relu(self.d11(xu11))
         xd12 = F.relu(self.d12(xd11))
-        # xd12 = self.fusion(xd12, 512)
+        xd12 = self.fusion(xd12, 512)
 
         xu2 = self.upconv2(xd12)
         xu22 = torch.cat([xu2, xe32], dim=1)
         xd21 = F.relu(self.d21(xu22))
         xd22 = F.relu(self.d22(xd21))
-        # xd22 = self.fusion(xd22, 256)
+        xd22 = self.fusion(xd22, 256)
 
         xu3 = self.upconv3(xd22)
         xu33 = torch.cat([xu3, xe22], dim=1)
         xd31 = F.relu(self.d31(xu33))
         xd32 = F.relu(self.d32(xd31))
-        # xd32 = self.fusion(xd32, 128)
+        xd32 = self.fusion(xd32, 128)
 
         xu4 = self.upconv4(xd32)
         xu44 = torch.cat([xu4, xe12], dim=1)
