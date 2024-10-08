@@ -69,22 +69,26 @@ class UNet(nn.Module):
         spatial_maps = torch.abs(spatial_maps)
         return spatial_maps
 
-    def fuse_features(self, spatial_features, frequency_features, channel_size):
+    def fuse_features(self, x, low_freq, high_freq, channel_size):
 
         conv = nn.Conv2d(channel_size, channel_size // 2, kernel_size=3, padding=1)
-        spatial_features = conv(spatial_features)
-        frequency_features = conv(frequency_features)
+        low_freq = conv(low_freq)
+        high_freq = conv(high_freq)
 
         # Concatenate the spatial and frequency domain features along the channel dimension
-        fused_features = torch.cat([spatial_features, frequency_features], dim=1)
+        fused_features = torch.cat([x, low_freq, high_freq], dim=1)
+        conv1 = nn.Conv2d(channel_size * 2, channel_size, kernel_size=3, padding=1)
+        fused_features = conv1(fused_features)
 
         return fused_features
 
     def fusion(self, feature_map, channel_size):
         frequency_feature = self.frequency_transform(feature_map)
-        frequency_feature = self.frequency_filter(frequency_feature, lowOrHigh, 0.48)
-        spatial_feature = self.frequency_to_spatial(frequency_feature)
-        return self.fuse_features(spatial_feature, frequency_feature, channel_size)
+        low_freq = self.frequency_filter(frequency_feature, 'low', 0.48)
+        high_freq = self.frequency_filter(frequency_feature, 'high', 0.48)
+        low_freq = self.frequency_to_spatial(low_freq)
+        high_freq = self.frequency_to_spatial(high_freq)
+        return self.fuse_features(feature_map, low_freq, high_freq, channel_size)
 
     def forward(self, x):
         # Encoder

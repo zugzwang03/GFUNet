@@ -10,14 +10,13 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 import os
 import dataloader
-import model_training
 import model as ml
 
 lowOrHigh = ml.lowOrHigh
 leftOrRight = dataloader.leftOrRight
 
 transform = dataloader.transform
-device = model_training.device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = train_val.model
 
 # Load the best model
