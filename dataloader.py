@@ -7,6 +7,8 @@ from PIL import Image
 import os
 
 leftOrRight = 'R'
+imageHeight = 0
+imageWidth = 0
 
 # Sample custom dataset for image segmentation
 class SegmentationDataset(Dataset):
@@ -35,11 +37,8 @@ class SegmentationDataset(Dataset):
         image = Image.open(img_path).convert("RGB")
         mask = Image.open(mask_path).convert("L")  # Grayscale for mask
         
-        print('Image size: ')
-        print(image.size)
-        print('Mask size: ')
-        print(mask.size)
-
+        imageHeight, imageWidth = mask.size
+    
         if self.transform:
             image = self.transform(image)
             mask = self.transform(mask)

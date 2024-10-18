@@ -13,6 +13,7 @@ import dataloader
 import model as ml
 
 leftOrRight = dataloader.leftOrRight
+imageHeight, imageWidth = dataloader.imageHeight, dataloader.imageWidth
 
 transform = dataloader.transform
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -46,6 +47,7 @@ for output_mask in output_masks:
     threshold = np.mean(output_mask[0]) # Set a threshold value to binarize the output
     output_mask = (output_mask > threshold).astype(np.float32)
     output_image = Image.fromarray((output_mask[0] * 255).astype('uint8'))  # Convert mask to image
+    output_image = output_image.resize((imageHeight, imageWidth))
     save_path = os.path.join("/content/drive/MyDrive/Fusion", leftOrRight, f"pred_{idx}.png")  # Update the path to save the mask
     output_image.save(save_path)
     print(f"Output mask saved at {save_path}")
