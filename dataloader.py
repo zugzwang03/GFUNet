@@ -7,8 +7,6 @@ from PIL import Image
 import os
 
 leftOrRight = 'R'
-imageHeight = 0
-imageWidth = 0
 
 # Sample custom dataset for image segmentation
 class SegmentationDataset(Dataset):
@@ -36,9 +34,7 @@ class SegmentationDataset(Dataset):
 
         image = Image.open(img_path).convert("RGB")
         mask = Image.open(mask_path).convert("L")  # Grayscale for mask
-        
-        imageHeight, imageWidth = mask.size
-    
+            
         if self.transform:
             image = self.transform(image)
             mask = self.transform(mask)
@@ -60,6 +56,7 @@ mask_dir = "/content/drive/MyDrive/casia4i"
 # Create datasets and dataloaders
 train_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=10, shuffle=True)
+print(train_loader[0].size)
 
 val_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
 val_loader = DataLoader(val_dataset, batch_size=10, shuffle=False)

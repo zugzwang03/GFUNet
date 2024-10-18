@@ -10,10 +10,9 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 import os
 import dataloader
-import model as ml
 
 leftOrRight = dataloader.leftOrRight
-imageHeight, imageWidth = dataloader.imageHeight, dataloader.imageWidth
+imageHeight, imageWidth = 0, 0
 
 transform = dataloader.transform
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -32,6 +31,7 @@ for idx in range(1, 10):
         for img_file in os.listdir(dir_path):
             if img_file.endswith('.jpg'):
                 test_image = Image.open(os.path.join(dir_path, img_file)).convert("RGB")
+                imageHeight, imageWidth = test_image.size
                 test_image_tensor = transform(test_image).unsqueeze(0).to(device)  # Add batch dimension
 
                 with torch.no_grad():

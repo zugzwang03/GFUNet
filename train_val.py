@@ -7,7 +7,6 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Dataset
 from PIL import Image
-import os
 
 UNet = model.UNet
 def train(model, dataloader, criterion, optimizer, device):
