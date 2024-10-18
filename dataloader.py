@@ -34,6 +34,11 @@ class SegmentationDataset(Dataset):
 
         image = Image.open(img_path).convert("RGB")
         mask = Image.open(mask_path).convert("L")  # Grayscale for mask
+        
+        print('Image size: ')
+        print(image.size)
+        print('Mask size: ')
+        print(mask.size)
 
         if self.transform:
             image = self.transform(image)
