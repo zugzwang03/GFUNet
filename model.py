@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-lowOrHigh = 'high'
-
 class UNet(nn.Module):
     def __init__(self, n_class):
         super().__init__()
