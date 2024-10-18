@@ -56,7 +56,6 @@ mask_dir = "/content/drive/MyDrive/casia4i"
 # Create datasets and dataloaders
 train_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=10, shuffle=True)
-print(train_loader[0].size)
 
 val_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
 val_loader = DataLoader(val_dataset, batch_size=10, shuffle=False)
