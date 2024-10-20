@@ -46,7 +46,7 @@ class SegmentationDataset(Dataset):
 
 # Transformations
 transform = transforms.Compose([
-    transforms.Resize((64, 64)),
+    transforms.Resize((256, 256)),
     transforms.ToTensor()
 ])
 
