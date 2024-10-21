@@ -7,8 +7,10 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Dataset
 from PIL import Image
+import plain_UNet_model
 
-UNet = model.UNet
+# UNet = model.UNet
+UNet = plain_UNet_model.UNet
 def train(model, dataloader, criterion, optimizer, device):
     model.train()  # Set model to training mode
     running_loss = 0.0
