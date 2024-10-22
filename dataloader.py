@@ -38,9 +38,6 @@ class SegmentationDataset(Dataset):
         if self.transform:
             image = self.transform(image)
             mask = self.transform(mask)
-            
-        print(image)
-        print(mask)
 
         # Convert mask to float32
         mask = mask.float()
