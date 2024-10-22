@@ -16,7 +16,7 @@ class SegmentationDataset(Dataset):
         self.transform = transform
         # Collect images from multiple directories
         self.images = []
-        for idx in range(1, 250):
+        for idx in range(1, 2):
             dir_path = os.path.join(image_dir, f"{idx:03d}", leftOrRight)
             if os.path.exists(dir_path):
                 for img_file in os.listdir(dir_path):
@@ -38,6 +38,9 @@ class SegmentationDataset(Dataset):
         if self.transform:
             image = self.transform(image)
             mask = self.transform(mask)
+            
+        print(image)
+        print(mask)
 
         # Convert mask to float32
         mask = mask.float()
@@ -55,7 +58,7 @@ mask_dir = "/content/drive/MyDrive/casia4i"
 
 # Create datasets and dataloaders
 train_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
-train_loader = DataLoader(train_dataset, batch_size=10, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=10, shuffle=False)
 
 val_dataset = SegmentationDataset(image_dir, mask_dir, transform=transform)
 val_loader = DataLoader(val_dataset, batch_size=10, shuffle=False)
