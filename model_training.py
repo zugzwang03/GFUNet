@@ -14,7 +14,7 @@ optimizer = train_val.optimizer
 device = train_val.device
 
 # Number of epochs to train
-n_epochs = 5
+n_epochs = 10
 best_loss = float('inf')
 
 for epoch in range(n_epochs):
