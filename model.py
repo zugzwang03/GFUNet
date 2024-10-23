@@ -87,7 +87,7 @@ class UNet(nn.Module):
 
     def fusion(self, feature_map, channel_size):
         frequency_feature = self.frequency_transform(feature_map)
-        return frequency_feature
+        return frequency_to_spatial(frequency_feature)
         # low_freq = self.frequency_filter(frequency_feature, "low", 0.48)
         # high_freq = self.frequency_filter(frequency_feature, "high", 0.48)
         # low_freq = self.frequency_to_spatial(low_freq)
